@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 
 // Create a transporter object using SMTP transport
+// createTransport is default fn in nodemailer, it has service and auth objects
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {

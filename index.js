@@ -9,6 +9,8 @@ import {sendEmail} from "./Mailer.js";
 
 
 const app= express()
+//things comes under app.use are default middleware
+//things we write in router , controller are custom middleware
 app.use(cors())
 app.use(bodyParser.json())
 
