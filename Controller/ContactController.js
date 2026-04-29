@@ -9,7 +9,7 @@ export const createContact= async(req,res)=>{
 const newContact =new Contact(req.body)
 await newContact.save()
 
-res.status(200).json({message:"contact added successfully",data:[newContact]})
+// res.status(200).json({message:"contact added successfully",data:[newContact]})
 
 
  // Fetch contact details from MongoDB
@@ -24,7 +24,7 @@ res.status(200).json({message:"contact added successfully",data:[newContact]})
  // Send email using Nodemailer
  await sendEmail('Contact Form Submissions', emailText);
 
- res.status(200).json({ message: 'Form submitted successfully!' });
+ res.status(200).json({ message: 'constact saved and Form submitted successfully!',data:[newContact] });
 
 
     } catch (error) {
