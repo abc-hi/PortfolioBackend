@@ -14,7 +14,7 @@ await newContact.save()
 
  // Fetch contact details from MongoDB
  const contacts = await Contact.find();
-
+console.log("data saved")
  // Prepare email content
  let emailText = 'Contact Form Submissions:\n\n';
  contacts.forEach(contact => {
@@ -23,9 +23,9 @@ await newContact.save()
 
  // Send email using Nodemailer
  await sendEmail('Contact Form Submissions', emailText);
-
+console.log("email sent")
  res.status(200).json({ message: 'constact saved and Form submitted successfully!',data:[newContact] });
-
+console.log("email sent successfully")
 
     } catch (error) {
         console.log(error)
