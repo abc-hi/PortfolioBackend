@@ -1,4 +1,6 @@
 import nodemailer from 'nodemailer';
+import dotenv from "dotenv";
+dotenv.config();
 
 // Create a transporter object using SMTP transport
 // createTransport is default fn in nodemailer, it has service and auth objects
