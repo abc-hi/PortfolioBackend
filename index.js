@@ -5,6 +5,8 @@ import bodyParser from "body-parser";
 import dbconnection from "./Database/DBConfig.js";
 import contactrouter from './Router/ContactRouter.js';
 import {sendEmail} from "./Mailer.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 
 
@@ -34,7 +36,8 @@ app.use('/api', contactrouter)
     
 
     
-
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PWD exists:", !!process.env.EMAIL_PWD);
 
 
 app.listen(port, () => {

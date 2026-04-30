@@ -1,38 +1,39 @@
 import Contact from "../Models/ContactSchema.js";
-import {sendEmail} from "../Mailer.js";
+
+import { sendEmail } from "../Mailer.js";
 
 
 export const createContact= async(req,res)=>{
-    try {
-        
-        
-const newContact =new Contact(req.body)
-await newContact.save()
+     try {
+    const newContact = new Contact(req.body);
+    await newContact.save();
 
-// res.status(200).json({message:"contact added successfully",data:[newContact]})
+    console.log("data saved");
 
+    // send only current submission
+    const emailText = `
+Portfolio Contact Form Submission:
 
- // Fetch contact details from MongoDB
- const contacts = await Contact.find();
-console.log("data saved")
- // Prepare email content
- let emailText = 'Contact Form Submissions:\n\n';
- contacts.forEach(contact => {
-   emailText += `Name: ${contact.name}\nEmail: ${contact.email}\nSubject: ${contact.subject}\nMessage: ${contact.message}\n\n`;
- });
+Name: ${newContact.name}
+Email: ${newContact.email}
+Subject: ${newContact.subject}
+Message: ${newContact.message}
+    `;
+console.log("before email")
+    await sendEmail(
+      "Portfolio Contact Form Submission",
+      emailText
+    );
 
- // Send email using Nodemailer
- await sendEmail('Contact Form Submissions', emailText);
-console.log("email sent")
- res.status(200).json({ message: 'constact saved and Form submitted successfully!',data:[newContact] });
-console.log("email sent successfully")
+    console.log("after email");
 
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: 'Internal server error' });
+    res.status(200).json({
+      message: "Contact saved and email sent successfully!",
+      data: newContact
+    });
 
-        
-    }
-}
-
- 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

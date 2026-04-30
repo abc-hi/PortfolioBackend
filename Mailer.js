@@ -5,24 +5,31 @@ dotenv.config();
 // Create a transporter object using SMTP transport
 // createTransport is default fn in nodemailer, it has service and auth objects
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+   host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PWD   
-  }
+  },
+    debug: true,
+  logger: true
 });
 
 // Function to send email
 export const sendEmail = async (subject, text) => {
   try {
+     console.log("🚀 Sending email...");
     let info = await transporter.sendMail({
-      from: 'revathimohancse@gmail.com',   // Your email address
-      to: 'revathimohancse@gmail.com',     // Your email address where you want to receive the submissions
+      from: `"Portfolio App"<${process.env.EMAIL_USER}>`,   // Your email address
+      replyTo: 'revathihero0@gmail.com',                           // Your email address where you want to receive the submissions
       subject: subject,
-      text: text
+      text: text,
+        html: `<p>${text.replace(/\n/g, "<br>")}</p>`
     });
     console.log('Message sent: %s', info.messageId);
   } catch (error) {
     console.error('Error sending email:', error);
+     throw error;
   }
 };
