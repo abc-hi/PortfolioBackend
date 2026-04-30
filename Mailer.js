@@ -22,7 +22,7 @@ export const sendEmail = async (subject, text) => {
      console.log("🚀 Sending email...");
     let info = await transporter.sendMail({
       from: `"Portfolio App"<${process.env.EMAIL_USER}>`,   // Your email address
-      replyTo: 'revathihero0@gmail.com',                           // Your email address where you want to receive the submissions
+      replyTo: 'revarevs87@gmail.com',                           // Your email address where you want to receive the submissions
       subject: subject,
       text: text,
         html: `<p>${text.replace(/\n/g, "<br>")}</p>`
